@@ -10,6 +10,8 @@
             font-family: Arial, sans-serif;
             background-color: #f3f3f3;
             margin: 0;
+            position: relative;
+            overflow: hidden;
         }
 
         .message {
@@ -47,19 +49,54 @@
         button:hover {
             background-color: #45a049;
         }
+
+        /* Confetti canvas */
+        canvas#confetti {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0px;
+            left: 0px;
+            z-index: 1000;
+            pointer-events: none;
+        }
     </style>
 </head>
 <body>
 
+    <!-- Confetti Canvas -->
+    <canvas id="confetti"></canvas>
+
+    <!-- Birthday Message -->
     <div class="message">
         HAPPY BIRTHDAY NITHYA KUTTY <span class="heart">❤️</span>
     </div>
 
+    <!-- Birthday Picture -->
     <div class="picture">
         <img src="nithyapic.jpg" alt="Nithya's Picture">
     </div>
 
+    <!-- Follow Me Button -->
     <button onclick="window.location.href='gallery.html'">Follow Me</button>
+
+    <!-- JS Confetti Library -->
+    <script src="https://cdn.jsdelivr.net/npm/js-confetti@latest/dist/js-confetti.browser.js"></script>
+
+    <script>
+        // Initialize JSConfetti
+        const jsConfetti = new JSConfetti();
+
+        // Trigger confetti as soon as the page loads
+        window.onload = () => {
+            jsConfetti.addConfetti({
+                confettiColors: [
+                    '#ff0a54', '#ff477e', '#ff7096', '#ff85a1', '#fbb1bd',
+                    '#f9bec7', '#f5d0e4', '#f0e6ef', '#d0f4de', '#a9e5bb'
+                ], // Using colorful paper confetti instead of emojis
+            });
+        };
+    </script>
 
 </body>
 </html>
