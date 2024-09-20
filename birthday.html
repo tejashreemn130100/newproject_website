@@ -10,6 +10,8 @@
             font-family: Arial, sans-serif;
             background-color: #f3f3f3;
             margin: 0;
+            position: relative;
+            overflow: hidden;
         }
 
         .message {
@@ -25,6 +27,8 @@
 
         .picture {
             margin-top: 30px;
+            position: relative;
+            display: inline-block;
         }
 
         .picture img {
@@ -47,6 +51,72 @@
         button:hover {
             background-color: #45a049;
         }
+
+        /* Balloon Styles */
+        .balloon {
+            width: 80px;
+            height: 120px;
+            background-color: pink;
+            border-radius: 50%;
+            position: absolute;
+            bottom: 0;
+            animation: floatUp 10s linear infinite, sway 3s infinite ease-in-out;
+            background: radial-gradient(circle, #FF69B4, #DB7093);
+        }
+
+        .balloon.purple {
+            background: radial-gradient(circle, #8A2BE2, #9370DB);
+        }
+
+        /* Animation for floating upwards */
+        @keyframes floatUp {
+            0% {
+                bottom: -10%;
+            }
+            100% {
+                bottom: 110%;
+            }
+        }
+
+        /* Animation for swaying motion */
+        @keyframes sway {
+            0%, 100% {
+                transform: translateX(0);
+            }
+            50% {
+                transform: translateX(20px);
+            }
+        }
+
+        /* Position balloons on the sides of the picture */
+        .balloon.left {
+            left: 10%;
+        }
+
+        .balloon.right {
+            right: 10%;
+        }
+
+        /* Additional balloon positions to make multiple balloons */
+        .balloon.left:nth-child(2) {
+            left: 15%;
+            animation-duration: 12s;
+        }
+
+        .balloon.left:nth-child(3) {
+            left: 20%;
+            animation-duration: 14s;
+        }
+
+        .balloon.right:nth-child(2) {
+            right: 15%;
+            animation-duration: 13s;
+        }
+
+        .balloon.right:nth-child(3) {
+            right: 20%;
+            animation-duration: 15s;
+        }
     </style>
 </head>
 <body>
@@ -55,11 +125,23 @@
         HAPPY BIRTHDAY NITHYA KUTTY <span class="heart">❤️</span>
     </div>
 
+    <!-- Balloons floating on the left side -->
+    <div class="balloon left"></div>
+    <div class="balloon left purple"></div>
+    <div class="balloon left"></div>
+
+    <!-- Picture section -->
     <div class="picture">
         <img src="nithyapic.jpg" alt="Nithya's Picture">
     </div>
+
+    <!-- Balloons floating on the right side -->
+    <div class="balloon right purple"></div>
+    <div class="balloon right"></div>
+    <div class="balloon right purple"></div>
 
     <button onclick="window.location.href='gallery.html'">Follow Me</button>
 
 </body>
 </html>
+
