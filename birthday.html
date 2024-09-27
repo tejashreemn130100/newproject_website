@@ -41,7 +41,6 @@
             box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
         }
 
-        /* Button styling */
         button {
             margin-top: 30px;
             padding: 10px 20px;
@@ -58,7 +57,6 @@
             background-color: #45a049;
         }
 
-        /* Confetti canvas */
         canvas#confetti {
             position: fixed;
             width: 100%;
@@ -69,7 +67,6 @@
             pointer-events: none;
         }
 
-        /* Balloon styling */
         .balloon {
             background-image: url(https://i.imgur.com/QJZPw2X.png);
             width: 120px;
@@ -81,7 +78,6 @@
             z-index: 5;
         }
 
-        /* Animation for vertical movement */
         @keyframes move_y {
             from {
                 bottom: -10%;
@@ -91,7 +87,6 @@
             }
         }
 
-        /* Animation for swaying motion */
         @keyframes oscil1 {
             from {
                 transform: translateX(0) rotate(0deg);
@@ -114,7 +109,6 @@
             }
         }
 
-        /* Balloon positions */
         .balloon:nth-child(1) {
             left: 10%;
             animation-duration: 25s;
@@ -131,7 +125,7 @@
         }
 
         .balloon:nth-child(4) {
-            left: 50%; /* Adjusted for proper placement */
+            left: 50%;
             animation-duration: 32s;
         }
 
@@ -150,7 +144,7 @@
 <body>
 
     <!-- Background Music -->
-    <audio autoplay loop>
+    <audio id="background-audio" autoplay loop muted>
         <source src="song.mp3" type="audio/mpeg">
         Your browser does not support the audio element.
     </audio>
@@ -194,6 +188,10 @@
                     '#f9bec7', '#f5d0e4', '#f0e6ef', '#d0f4de', '#a9e5bb'
                 ],
             });
+
+            // Unmute the audio to bypass browser autoplay restrictions
+            const audio = document.getElementById("background-audio");
+            audio.muted = false;
         };
     </script>
 
