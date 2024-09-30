@@ -3,19 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Memory Gallery</title>
+    <title>Memory Gallery with Snow Effect</title>
     <style>
         body {
             background-color: #2e2e2e; /* Darker background */
             font-family: Arial, sans-serif;
             text-align: center;
-            position: relative; /* To position the snow effect canvas */
-            overflow: hidden;
+            margin: 0;
+            padding: 0;
+            position: relative;
         }
 
         h1 {
             margin-top: 30px;
-            color: purple;
+            color: magenta;
         }
 
         .gallery {
@@ -53,7 +54,8 @@
             position: absolute;
             top: 0;
             left: 0;
-            pointer-events: none; /* Ensure it doesn't interfere with other content */
+            pointer-events: none;
+            z-index: 100; /* Keep snowflakes on top */
         }
     </style>
 </head>
@@ -62,25 +64,13 @@
     <h1>Our Memories Together</h1>
 
     <div class="gallery">
-        <!-- Add 15 images -->
-         <img src="memory1.jpg" alt="Memory 1">
-         <img src="memory2.jpg" alt="Memory 2">
-         <img src="memory3.jpg" alt="Memory 3">
-         <img src="memory4.jpg" alt="Memory 4">
-         <img src="memory5.jpg" alt="Memory 5">
-         <img src="memory6.jpg" alt="Memory 6">
-         <img src="memory7.jpg" alt="Memory 7">
-         <img src="memory8.jpg" alt="Memory 8">
-         <img src="memory9.jpg" alt="Memory 9">
-         <img src="memory10.jpg" alt="Memory 10">
-         <img src="memory11.jpg" alt="Memory 11">
-         <img src="memory12.jpg" alt="Memory 12">
-         <img src="memory13.jpg" alt="Memory 13">
-         <img src="memory14.jpg" alt="Memory 14">
-         <img src="memory15.jpg" alt="Memory 15">
-         <img src="memory16.jpg" alt="Memory 16">
-         <img src="memory17.jpg" alt="Memory 17">
-         <img src="memory18.jpg" alt="Memory 18">
+        <!-- Add your images -->
+        <img src="memory1.jpg" alt="Memory 1">
+        <img src="memory2.jpg" alt="Memory 2">
+        <img src="memory3.jpg" alt="Memory 3">
+        <img src="memory4.jpg" alt="Memory 4">
+        <img src="memory5.jpg" alt="Memory 5">
+        <img src="memory6.jpg" alt="Memory 6">
     </div>
 
     <button onclick="window.location.href='secret.html'">Secret Message</button>
@@ -89,80 +79,70 @@
     <canvas id="snowCanvas"></canvas>
 
     <script>
-        // Snow effect script
-        document.addEventListener('DOMContentLoaded', function() {
-            const canvas = document.getElementById('snowCanvas');
-            const ctx = canvas.getContext('2d');
-            let width = canvas.width = window.innerWidth;
-            let height = canvas.height = window.innerHeight;
-            const snowflakes = [];
+        var canvas = document.getElementById("snowCanvas");
+        var ctx = canvas.getContext("2d");
+        var particles = [];
 
-            // Resize the canvas if window resizes
-            window.addEventListener('resize', function() {
-                width = canvas.width = window.innerWidth;
-                height = canvas.height = window.innerHeight;
-            });
+        // Resize canvas to fill the screen
+        function resize() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
 
-            // Snowflake class
-            class Snowflake {
-                constructor(x, y, speedX, speedY, radius) {
-                    this.x = x;
-                    this.y = y;
-                    this.speedX = speedX;
-                    this.speedY = speedY;
-                    this.radius = radius;
-                }
+        window.addEventListener('resize', resize);
+        resize();
 
-                update() {
-                    this.x += this.speedX;
-                    this.y += this.speedY;
+        // Create a snowflake particle
+        function Particle(x, y, speedX, speedY, radius) {
+            this.x = x;
+            this.y = y;
+            this.speedX = speedX;
+            this.speedY = speedY;
+            this.radius = radius;
+            this.alpha = Math.random() * 0.5 + 0.5; // Add transparency for more realism
+        }
 
-                    // Wrap the snowflake around when it goes off the screen
-                    if (this.y > height) {
-                        this.y = 0;
-                        this.x = Math.random() * width;
-                    }
-                    if (this.x > width) {
-                        this.x = 0;
-                    } else if (this.x < 0) {
-                        this.x = width;
-                    }
-                }
+        // Update particle position
+        Particle.prototype.update = function () {
+            this.x += this.speedX;
+            this.y += this.speedY;
+            if (this.y > canvas.height) this.y = 0;
+            if (this.x > canvas.width) this.x = 0;
+            if (this.x < 0) this.x = canvas.width;
+        }
 
-                draw() {
-                    ctx.beginPath();
-                    ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-                    ctx.fillStyle = 'white';
-                    ctx.fill();
-                }
+        // Draw particle on the canvas
+        Particle.prototype.draw = function () {
+            ctx.beginPath();
+            ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2, false);
+            ctx.fillStyle = "rgba(255, 255, 255," + this.alpha + ")";
+            ctx.fill();
+        }
+
+        // Generate particles when the mouse moves
+        window.addEventListener("mousemove", function (event) {
+            for (var i = 0; i < 5; i++) { // Add more particles as mouse moves
+                particles.push(new Particle(
+                    event.clientX,
+                    event.clientY,
+                    (Math.random() - 0.5) * 2,
+                    (Math.random() - 0.5) * 2,
+                    Math.random() * 3 + 1
+                ));
             }
-
-            // Create initial snowflakes
-            function createSnowflakes() {
-                for (let i = 0; i < 100; i++) {
-                    const x = Math.random() * width;
-                    const y = Math.random() * height;
-                    const speedX = Math.random() * 1 - 0.5;
-                    const speedY = Math.random() * 2 + 1;
-                    const radius = Math.random() * 3 + 1;
-                    snowflakes.push(new Snowflake(x, y, speedX, speedY, radius));
-                }
-            }
-
-            // Update snowflakes
-            function updateSnowflakes() {
-                ctx.clearRect(0, 0, width, height);
-                snowflakes.forEach(snowflake => {
-                    snowflake.update();
-                    snowflake.draw();
-                });
-                requestAnimationFrame(updateSnowflakes);
-            }
-
-            // Initialize snowflakes
-            createSnowflakes();
-            updateSnowflakes();
         });
+
+        // Animate snowflakes
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            for (var i = 0; i < particles.length; i++) {
+                particles[i].update();
+                particles[i].draw();
+            }
+            requestAnimationFrame(animate);
+        }
+
+        animate();
     </script>
 
 </body>
