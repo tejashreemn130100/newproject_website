@@ -6,9 +6,11 @@
     <title>Memory Gallery</title>
     <style>
         body {
-            background-color: #f9f9f9;
+            background-color: #2e2e2e; /* Darker background */
             font-family: Arial, sans-serif;
             text-align: center;
+            position: relative; /* To position the snow effect canvas */
+            overflow: hidden;
         }
 
         h1 {
@@ -45,6 +47,14 @@
         button:hover {
             background-color: #45a049;
         }
+
+        /* Snow effect style */
+        canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            pointer-events: none; /* Ensure it doesn't interfere with other content */
+        }
     </style>
 </head>
 <body>
@@ -75,6 +85,85 @@
 
     <button onclick="window.location.href='secret.html'">Secret Message</button>
 
+    <!-- Snow effect canvas -->
+    <canvas id="snowCanvas"></canvas>
+
+    <script>
+        // Snow effect script
+        document.addEventListener('DOMContentLoaded', function() {
+            const canvas = document.getElementById('snowCanvas');
+            const ctx = canvas.getContext('2d');
+            let width = canvas.width = window.innerWidth;
+            let height = canvas.height = window.innerHeight;
+            const snowflakes = [];
+
+            // Resize the canvas if window resizes
+            window.addEventListener('resize', function() {
+                width = canvas.width = window.innerWidth;
+                height = canvas.height = window.innerHeight;
+            });
+
+            // Snowflake class
+            class Snowflake {
+                constructor(x, y, speedX, speedY, radius) {
+                    this.x = x;
+                    this.y = y;
+                    this.speedX = speedX;
+                    this.speedY = speedY;
+                    this.radius = radius;
+                }
+
+                update() {
+                    this.x += this.speedX;
+                    this.y += this.speedY;
+
+                    // Wrap the snowflake around when it goes off the screen
+                    if (this.y > height) {
+                        this.y = 0;
+                        this.x = Math.random() * width;
+                    }
+                    if (this.x > width) {
+                        this.x = 0;
+                    } else if (this.x < 0) {
+                        this.x = width;
+                    }
+                }
+
+                draw() {
+                    ctx.beginPath();
+                    ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                    ctx.fillStyle = 'white';
+                    ctx.fill();
+                }
+            }
+
+            // Create initial snowflakes
+            function createSnowflakes() {
+                for (let i = 0; i < 100; i++) {
+                    const x = Math.random() * width;
+                    const y = Math.random() * height;
+                    const speedX = Math.random() * 1 - 0.5;
+                    const speedY = Math.random() * 2 + 1;
+                    const radius = Math.random() * 3 + 1;
+                    snowflakes.push(new Snowflake(x, y, speedX, speedY, radius));
+                }
+            }
+
+            // Update snowflakes
+            function updateSnowflakes() {
+                ctx.clearRect(0, 0, width, height);
+                snowflakes.forEach(snowflake => {
+                    snowflake.update();
+                    snowflake.draw();
+                });
+                requestAnimationFrame(updateSnowflakes);
+            }
+
+            // Initialize snowflakes
+            createSnowflakes();
+            updateSnowflakes();
+        });
+    </script>
+
 </body>
 </html>
-
