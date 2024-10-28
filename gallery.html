@@ -8,25 +8,24 @@
         body {
             background-color: #2e2e2e;
             font-family: Arial, sans-serif;
+            color: #FFFAE4;
             text-align: center;
             margin: 0;
             padding: 0;
-            position: relative;
         }
 
         h1 {
             margin-top: 30px;
-            color: #FFFAE4;
         }
 
         .gallery-container {
             display: flex;
             justify-content: center;
-            gap: 40px; /* Adjusts the space between image columns */
+            align-items: center;
+            gap: 50px; /* Adjusts the space between columns */
             padding: 20px;
             max-width: 1200px;
             margin: auto;
-            position: relative;
         }
 
         .gallery-column {
@@ -45,26 +44,17 @@
 
         /* Text Between Columns Styling */
         .between-text {
-            font-size: 24px;
+            font-size: 28px;
             font-weight: bold;
             color: #FF69B4; /* Bright color */
             text-transform: uppercase;
             letter-spacing: 5px;
-            position: absolute;
-            top: 30%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            z-index: 10;
-            white-space: nowrap;
-        }
-
-        .between-text.secondary {
-            top: 40%; /* Position for the second line of text */
+            line-height: 1.5;
         }
 
         /* Snow effect style */
         canvas {
-            position: absolute;
+            position: fixed;
             top: 0;
             left: 0;
             pointer-events: none;
@@ -91,8 +81,10 @@
         </div>
 
         <!-- Text Between Columns -->
-        <div class="between-text">I LOVE YOU</div>
-        <div class="between-text secondary">NITHYA MAA</div>
+        <div class="between-text">
+            I LOVE YOU<br>
+            NITHYA MAA
+        </div>
 
         <div class="gallery-column">
             <!-- Right column images -->
