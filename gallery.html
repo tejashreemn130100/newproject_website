@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Memory Gallery with Snow Effect</title>
+    <title>Memory Gallery with Text Between Columns</title>
     <style>
         body {
             background-color: #2e2e2e;
@@ -25,6 +25,8 @@
             align-items: flex-start;
             padding: 20px;
             position: relative;
+            max-width: 1200px;
+            margin: auto;
         }
 
         .gallery {
@@ -32,6 +34,7 @@
             grid-template-columns: repeat(2, 1fr); /* 2 columns for gallery */
             grid-gap: 20px;
             justify-items: center;
+            position: relative;
         }
 
         .gallery img {
@@ -65,27 +68,27 @@
             z-index: 100;
         }
 
-        /* Vertical Text Styling */
-        .vertical-text {
+        /* Text Between Columns Styling */
+        .between-text {
             font-size: 24px;
             font-weight: bold;
             color: #FF69B4; /* Bright color */
             text-transform: uppercase;
             letter-spacing: 10px;
-            writing-mode: vertical-rl;
-            transform: rotate(180deg);
             position: absolute;
-            top: 30%;
+            left: 50%; /* Center between columns */
+            transform: translateX(-50%);
             z-index: 200; /* Above images */
+            white-space: nowrap;
         }
 
-        /* Positioning for "I LOVE YOU" and "NITHYA MAA" */
-        .love-text {
-            left: 40%; /* Adjust for center alignment between columns */
+        /* Position adjustments for each line */
+        .text-line1 {
+            top: 30%;
         }
 
-        .nithya-text {
-            right: 40%;
+        .text-line2 {
+            top: 40%;
         }
 
     </style>
@@ -117,9 +120,9 @@
             <img src="memory18.jpg" alt="Memory 18">
         </div>
 
-        <!-- Vertical Text Pop-ups -->
-        <div class="vertical-text love-text">I LOVE YOU</div>
-        <div class="vertical-text nithya-text">NITHYA MAA</div>
+        <!-- Text Between Columns -->
+        <div class="between-text text-line1">I LOVE YOU</div>
+        <div class="between-text text-line2">NITHYA MAA</div>
     </div>
 
     <button onclick="window.location.href='secret.html'">Secret Message</button>
