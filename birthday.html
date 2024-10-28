@@ -78,7 +78,7 @@
             bottom: 0;
             width: 100%;
             height: 100%;
-            z-index: 3;
+            z-index: 2; /* Lowered z-index so balloons are on top */
             overflow: hidden;
             pointer-events: none;
         }
@@ -92,17 +92,127 @@
         }
 
         /* Vary the animation for individual hearts */
-        .heart-shape:nth-child(1) { left: 10%; animation-duration: 7s; }
-        .heart-shape:nth-child(2) { left: 20%; animation-duration: 8s; }
-        .heart-shape:nth-child(3) { left: 30%; animation-duration: 6s; }
-        .heart-shape:nth-child(4) { left: 50%; animation-duration: 9s; }
-        .heart-shape:nth-child(5) { left: 70%; animation-duration: 8s; }
-        .heart-shape:nth-child(6) { left: 80%; animation-duration: 7s; }
+        .heart-shape:nth-child(1) {
+            left: 10%;
+            animation-duration: 7s;
+        }
+
+        .heart-shape:nth-child(2) {
+            left: 20%;
+            animation-duration: 8s;
+        }
+
+        .heart-shape:nth-child(3) {
+            left: 30%;
+            animation-duration: 6s;
+        }
+
+        .heart-shape:nth-child(4) {
+            left: 50%;
+            animation-duration: 9s;
+        }
+
+        .heart-shape:nth-child(5) {
+            left: 70%;
+            animation-duration: 8s;
+        }
+
+        .heart-shape:nth-child(6) {
+            left: 80%;
+            animation-duration: 7s;
+        }
 
         @keyframes float {
-            0% { transform: translateY(0) scale(1); opacity: 1; }
-            50% { opacity: 0.8; }
-            100% { transform: translateY(-100vh) scale(0.5); opacity: 0; }
+            0% {
+                transform: translateY(0) scale(1);
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.8;
+            }
+
+            100% {
+                transform: translateY(-100vh) scale(0.5);
+                opacity: 0;
+            }
+        }
+
+        .balloon {
+            background-image: url(https://i.imgur.com/QJZPw2X.png);
+            width: 120px;
+            height: 200px;
+            background-size: contain;
+            position: absolute;
+            bottom: 0%;
+            animation: move_y 30s linear forwards, oscil1 6s infinite;
+            z-index: 3; /* Increased z-index to make balloons appear above hearts */
+        }
+
+        @keyframes move_y {
+            from {
+                bottom: -10%;
+            }
+
+            to {
+                bottom: 100%;
+            }
+        }
+
+        @keyframes oscil1 {
+            from {
+                transform: translateX(0) rotate(0deg);
+                animation-timing-function: cubic-bezier(0.1, 0.3, 0.3, 1);
+            }
+
+            25% {
+                transform: translateX(10px) rotate(3deg);
+                animation-timing-function: cubic-bezier(0.7, 0.0, 0.9, 0.7);
+            }
+
+            50% {
+                transform: translateX(0) rotate(0deg);
+                animation-timing-function: cubic-bezier(0.1, 0.3, 0.3, 1);
+            }
+
+            75% {
+                transform: translateX(-10px) rotate(-3deg);
+                animation-timing-function: cubic-bezier(0.7, 0.0, 0.9, 0.7);
+            }
+
+            to {
+                transform: translateX(0) rotate(0deg);
+            }
+        }
+
+        .balloon:nth-child(1) {
+            left: 10%;
+            animation-duration: 25s;
+        }
+
+        .balloon:nth-child(2) {
+            left: 20%;
+            animation-duration: 28s;
+        }
+
+        .balloon:nth-child(3) {
+            left: 30%;
+            animation-duration: 30s;
+        }
+
+        .balloon:nth-child(4) {
+            left: 50%;
+            animation-duration: 32s;
+        }
+
+        .balloon:nth-child(5) {
+            left: 70%;
+            animation-duration: 27s;
+        }
+
+        .balloon:nth-child(6) {
+            left: 80%;
+            animation-duration: 29s;
         }
     </style>
 </head>
