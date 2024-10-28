@@ -6,7 +6,7 @@
     <title>Memory Gallery with Snow Effect</title>
     <style>
         body {
-            background-color: #2e2e2e; /* Darker background */
+            background-color: #2e2e2e;
             font-family: Arial, sans-serif;
             text-align: center;
             margin: 0;
@@ -19,11 +19,18 @@
             color: #FFFAE4;
         }
 
+        .gallery-container {
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            padding: 20px;
+            position: relative;
+        }
+
         .gallery {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
+            grid-template-columns: repeat(2, 1fr); /* 2 columns for gallery */
             grid-gap: 20px;
-            padding: 20px;
             justify-items: center;
         }
 
@@ -55,34 +62,64 @@
             top: 0;
             left: 0;
             pointer-events: none;
-            z-index: 100; /* Keep snowflakes on top */
+            z-index: 100;
         }
+
+        /* Vertical Text Styling */
+        .vertical-text {
+            font-size: 24px;
+            font-weight: bold;
+            color: #FF69B4; /* Bright color */
+            text-transform: uppercase;
+            letter-spacing: 10px;
+            writing-mode: vertical-rl;
+            transform: rotate(180deg);
+            position: absolute;
+            top: 30%;
+            z-index: 200; /* Above images */
+        }
+
+        /* Positioning for "I LOVE YOU" and "NITHYA MAA" */
+        .love-text {
+            left: 40%; /* Adjust for center alignment between columns */
+        }
+
+        .nithya-text {
+            right: 40%;
+        }
+
     </style>
 </head>
 <body>
 
     <h1>Our Memories Together💗</h1>
 
-    <div class="gallery">
-        <!-- Add your images -->
-        <img src="memory1.jpg" alt="Memory 1">
-         <img src="memory2.jpg" alt="Memory 2">
-         <img src="memory3.jpg" alt="Memory 3">
-         <img src="memory4.jpg" alt="Memory 4">
-         <img src="memory5.jpg" alt="Memory 5">
-         <img src="memory6.jpg" alt="Memory 6">
-         <img src="memory7.jpg" alt="Memory 7">
-         <img src="memory8.jpg" alt="Memory 8">
-         <img src="memory9.jpg" alt="Memory 9">
-         <img src="memory10.jpg" alt="Memory 10">
-         <img src="memory11.jpg" alt="Memory 11">
-         <img src="memory12.jpg" alt="Memory 12">
-         <img src="memory13.jpg" alt="Memory 13">
-         <img src="memory14.jpg" alt="Memory 14">
-         <img src="memory15.jpg" alt="Memory 15">
-         <img src="memory16.jpg" alt="Memory 16">
-         <img src="memory17.jpg" alt="Memory 17">
-         <img src="memory18.jpg" alt="Memory 18">
+    <div class="gallery-container">
+        <div class="gallery">
+            <!-- Add your images here -->
+            <img src="memory1.jpg" alt="Memory 1">
+            <img src="memory2.jpg" alt="Memory 2">
+            <img src="memory3.jpg" alt="Memory 3">
+            <img src="memory4.jpg" alt="Memory 4">
+            <img src="memory5.jpg" alt="Memory 5">
+            <img src="memory6.jpg" alt="Memory 6">
+            <img src="memory7.jpg" alt="Memory 7">
+            <img src="memory8.jpg" alt="Memory 8">
+            <img src="memory9.jpg" alt="Memory 9">
+            <img src="memory10.jpg" alt="Memory 10">
+            <img src="memory11.jpg" alt="Memory 11">
+            <img src="memory12.jpg" alt="Memory 12">
+            <img src="memory13.jpg" alt="Memory 13">
+            <img src="memory14.jpg" alt="Memory 14">
+            <img src="memory15.jpg" alt="Memory 15">
+            <img src="memory16.jpg" alt="Memory 16">
+            <img src="memory17.jpg" alt="Memory 17">
+            <img src="memory18.jpg" alt="Memory 18">
+        </div>
+
+        <!-- Vertical Text Pop-ups -->
+        <div class="vertical-text love-text">I LOVE YOU</div>
+        <div class="vertical-text nithya-text">NITHYA MAA</div>
     </div>
 
     <button onclick="window.location.href='secret.html'">Secret Message</button>
@@ -95,7 +132,6 @@
         var ctx = canvas.getContext("2d");
         var particles = [];
 
-        // Resize canvas to fill the screen
         function resize() {
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
@@ -104,17 +140,15 @@
         window.addEventListener('resize', resize);
         resize();
 
-        // Create a snowflake particle
         function Particle(x, y, speedX, speedY, radius) {
             this.x = x;
             this.y = y;
             this.speedX = speedX;
             this.speedY = speedY;
             this.radius = radius;
-            this.alpha = Math.random() * 0.5 + 0.5; // Add transparency for more realism
+            this.alpha = Math.random() * 0.5 + 0.5;
         }
 
-        // Update particle position
         Particle.prototype.update = function () {
             this.x += this.speedX;
             this.y += this.speedY;
@@ -123,7 +157,6 @@
             if (this.x < 0) this.x = canvas.width;
         }
 
-        // Draw particle on the canvas
         Particle.prototype.draw = function () {
             ctx.beginPath();
             ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2, false);
@@ -131,9 +164,8 @@
             ctx.fill();
         }
 
-        // Generate particles when the mouse moves
         window.addEventListener("mousemove", function (event) {
-            for (var i = 0; i < 5; i++) { // Add more particles as mouse moves
+            for (var i = 0; i < 5; i++) {
                 particles.push(new Particle(
                     event.clientX,
                     event.clientY,
@@ -144,7 +176,6 @@
             }
         });
 
-        // Animate snowflakes
         function animate() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             for (var i = 0; i < particles.length; i++) {
