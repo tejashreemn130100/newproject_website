@@ -62,22 +62,6 @@
             background-color: #45a049;
         }
 
-        .play-music {
-            padding: 10px 20px;
-            background-color: #ff4081;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            margin-top: 20px;
-            position: relative;
-            z-index: 10;
-        }
-
-        .play-music:hover {
-            background-color: #ff2060;
-        }
-
         canvas#confetti {
             position: fixed;
             width: 100%;
@@ -88,6 +72,7 @@
             pointer-events: none;
         }
 
+        /* Heart pop-up animation */
         .hearts {
             position: fixed;
             top: 0;
@@ -130,13 +115,10 @@
 <body>
 
     <!-- Background Music -->
-    <audio id="background-audio" loop>
-        <source src="I Wish You Happy Happy Birthday Song Mp3 Download.mp3" type="audio/mp3">
+    <audio id="background-audio" autoplay loop muted>
+        <source src="song.mp3" type="song/mp3">
         Your browser does not support the audio element.
     </audio>
-
-    <!-- Play Music Button -->
-    <button class="play-music" onclick="playMusic()">Play Music 🎶</button>
 
     <!-- Confetti Canvas -->
     <canvas id="confetti"></canvas>
@@ -172,14 +154,11 @@
                     '#f9bec7', '#f5d0e4', '#f0e6ef', '#d0f4de', '#a9e5bb'
                 ],
             });
-        };
 
-        // Function to play music when the button is clicked
-        function playMusic() {
+            // Unmute the audio to bypass browser autoplay restrictions
             const audio = document.getElementById("background-audio");
-            audio.play();
-            document.querySelector(".play-music").style.display = 'none';
-        }
+            audio.muted = false;
+        };
 
         // Heart pop-up generation
         function createHeart() {
@@ -197,11 +176,11 @@
             // Remove the heart after animation completes
             setTimeout(() => {
                 heart.remove();
-            }, 3000);
+            }, 3000); // Matches animation duration in CSS
         }
 
         // Generate multiple hearts at intervals
-        setInterval(createHeart, 800);
+        setInterval(createHeart, 800); // Create a heart every 0.8 seconds
     </script>
 
 </body>
