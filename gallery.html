@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Memory Gallery in Heart Shape</title>
+    <title>Memory Gallery with Lightbox and Masonry Layout</title>
     
     <!-- Lightbox CSS and JavaScript -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/css/lightbox.min.css" rel="stylesheet">
@@ -36,41 +36,54 @@
             text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.6);
         }
 
-        /* Heart-shaped gallery */
-        .heart-container {
-            position: relative;
-            width: 400px;
-            height: 400px;
-            margin: 50px auto;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-wrap: wrap;
+        /* Masonry Layout for Gallery */
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            grid-auto-rows: 200px;
+            gap: 15px;
+            padding: 20px;
+            justify-items: center;
         }
 
-        .heart-container a {
-            position: absolute;
+        .gallery a {
+            position: relative;
+            display: inline-block;
             overflow: hidden;
             border-radius: 10px;
             box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.3);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
 
-        /* Heart-shaped image positions */
-        .heart-container a:nth-child(1) { top: 150px; left: 90px; width: 60px; height: 60px; }
-        .heart-container a:nth-child(2) { top: 70px; left: 140px; width: 70px; height: 70px; }
-        .heart-container a:nth-child(3) { top: 70px; left: 230px; width: 70px; height: 70px; }
-        .heart-container a:nth-child(4) { top: 150px; left: 290px; width: 60px; height: 60px; }
-        .heart-container a:nth-child(5) { top: 220px; left: 100px; width: 90px; height: 90px; }
-        .heart-container a:nth-child(6) { top: 220px; left: 220px; width: 90px; height: 90px; }
-        .heart-container a:nth-child(7) { top: 320px; left: 160px; width: 80px; height: 80px; }
-        .heart-container a:nth-child(8) { top: 40px; left: 180px; width: 60px; height: 60px; }
-        .heart-container a:nth-child(9) { top: 160px; left: 180px; width: 70px; height: 70px; }
-        .heart-container a:nth-child(10) { top: 130px; left: 150px; width: 50px; height: 50px; }
-        
-        .heart-container a:hover {
-            transform: scale(1.1);
+        .gallery img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Hover effect for images */
+        .gallery a:hover {
+            transform: scale(1.05);
             box-shadow: 0px 6px 14px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Caption overlay */
+        .gallery a::after {
+            content: attr(data-title);
+            position: absolute;
+            bottom: 10px;
+            left: 10px;
+            background-color: rgba(0, 0, 0, 0.6);
+            color: #fff;
+            padding: 5px;
+            border-radius: 5px;
+            font-size: 0.9em;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .gallery a:hover::after {
+            opacity: 1;
         }
 
         /* Button for secret message */
@@ -106,18 +119,26 @@
     
     <div class="quote">"Our paths may change as life goes along, but the bond between friends remains ever strong."</div>
 
-    <!-- Heart-shaped Gallery with Lightbox -->
-    <div class="heart-container">
-        <a href="memory1.jpg" data-lightbox="memories" data-title="Memory 1"><img src="memory1.jpg" alt="Nandi hills trip"></a>
-        <a href="memory2.jpg" data-lightbox="memories" data-title="Memory 2"><img src="memory2.jpg" alt="Forum mall"></a>
-        <a href="memory3.jpg" data-lightbox="memories" data-title="Memory 3"><img src="memory3.jpg" alt="Evening walk"></a>
-        <a href="memory4.jpg" data-lightbox="memories" data-title="Memory 4"><img src="memory4.jpg" alt="Selfie before u left to native"></a>
-        <a href="memory5.jpg" data-lightbox="memories" data-title="Memory 5"><img src="memory5.jpg" alt="Byjus"></a>
-        <a href="memory6.jpg" data-lightbox="memories" data-title="Memory 6"><img src="memory6.jpg" alt="Savandurga"></a>
-        <a href="memory7.jpg" data-lightbox="memories" data-title="Memory 7"><img src="memory7.jpg" alt="Pre core"></a>
-        <a href="memory8.jpg" data-lightbox="memories" data-title="Memory 8"><img src="memory8.jpg" alt="Brookefield Mall"></a>
-        <a href="memory9.jpg" data-lightbox="memories" data-title="Memory 9"><img src="memory9.jpg" alt="Day to Remember"></a>
-        <a href="memory10.jpg" data-lightbox="memories" data-title="Memory 10"><img src="memory10.jpg" alt="October 30th 2022"></a>
+    <!-- Masonry Layout Gallery with Lightbox -->
+    <div class="gallery">
+        <a href="memory1.jpg" data-lightbox="memories" data-title="Memory 1"><img src="memory1.jpg" alt="Memory 1"></a>
+        <a href="memory2.jpg" data-lightbox="memories" data-title="Memory 2"><img src="memory2.jpg" alt="Memory 2"></a>
+        <a href="memory3.jpg" data-lightbox="memories" data-title="Memory 3"><img src="memory3.jpg" alt="Memory 3"></a>
+        <a href="memory4.jpg" data-lightbox="memories" data-title="Memory 4"><img src="memory4.jpg" alt="Memory 4"></a>
+        <a href="memory5.jpg" data-lightbox="memories" data-title="Memory 5"><img src="memory5.jpg" alt="Memory 5"></a>
+        <a href="memory6.jpg" data-lightbox="memories" data-title="Memory 6"><img src="memory6.jpg" alt="Memory 6"></a>
+        <a href="memory7.jpg" data-lightbox="memories" data-title="Memory 7"><img src="memory7.jpg" alt="Memory 7"></a>
+        <a href="memory8.jpg" data-lightbox="memories" data-title="Memory 8"><img src="memory8.jpg" alt="Memory 8"></a>
+        <a href="memory9.jpg" data-lightbox="memories" data-title="Memory 9"><img src="memory9.jpg" alt="Memory 9"></a>
+        <a href="memory10.jpg" data-lightbox="memories" data-title="Memory 10"><img src="memory10.jpg" alt="Memory 10"></a>
+        <a href="memory11.jpg" data-lightbox="memories" data-title="Memory 11"><img src="memory11.jpg" alt="Memory 11"></a>
+        <a href="memory12.jpg" data-lightbox="memories" data-title="Memory 12"><img src="memory12.jpg" alt="Memory 12"></a>
+        <a href="memory13.jpg" data-lightbox="memories" data-title="Memory 13"><img src="memory13.jpg" alt="Memory 13"></a>
+        <a href="memory14.jpg" data-lightbox="memories" data-title="Memory 14"><img src="memory14.jpg" alt="Memory 14"></a>
+        <a href="memory15.jpg" data-lightbox="memories" data-title="Memory 15"><img src="memory15.jpg" alt="Memory 15"></a>
+        <a href="memory16.jpg" data-lightbox="memories" data-title="Memory 16"><img src="memory16.jpg" alt="Memory 16"></a>
+        <a href="memory17.jpg" data-lightbox="memories" data-title="Memory 17"><img src="memory17.jpg" alt="Memory 17"></a>
+        <a href="memory18.jpg" data-lightbox="memories" data-title="Memory 18"><img src="memory18.jpg" alt="Memory 18"></a>
     </div>
 
     <button onclick="window.location.href='secret.html'">Secret Message</button>
@@ -126,7 +147,74 @@
     <canvas id="snowCanvas"></canvas>
 
     <script>
-        // Snow effect code remains the same as in your original
+        var canvas = document.getElementById("snowCanvas");
+        var ctx = canvas.getContext("2d");
+        var particles = [];
+
+        function resize() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+
+        window.addEventListener('resize', resize);
+        resize();
+
+        function Particle(x, y, speedX, speedY, radius) {
+            this.x = x;
+            this.y = y;
+            this.speedX = speedX;
+            this.speedY = speedY;
+            this.radius = radius;
+            this.alpha = Math.random() * 0.5 + 0.5;
+        }
+
+        Particle.prototype.update = function () {
+            this.x += this.speedX;
+            this.y += this.speedY;
+            if (this.y > canvas.height) this.y = 0;
+            if (this.x > canvas.width) this.x = 0;
+            if (this.x < 0) this.x = canvas.width;
+        }
+
+        Particle.prototype.draw = function () {
+            ctx.beginPath();
+            ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2, false);
+            ctx.fillStyle = "rgba(255, 255, 255," + this.alpha + ")";
+            ctx.fill();
+        }
+
+        window.addEventListener("mousemove", function (event) {
+            for (var i = 0; i < 5; i++) {
+                particles.push(new Particle(
+                    event.clientX,
+                    event.clientY,
+                    (Math.random() - 0.5) * 2,
+                    (Math.random() - 0.5) * 2,
+                    Math.random() * 3 + 1
+                ));
+            }
+        });
+
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            for (var i = 0; i < particles.length; i++) {
+                particles[i].update();
+                particles[i].draw();
+            }
+            requestAnimationFrame(animate);
+        }
+
+        for (var i = 0; i < 150; i++) {
+            particles.push(new Particle(
+                Math.random() * canvas.width,
+                Math.random() * canvas.height,
+                (Math.random() - 0.5) * 1,
+                Math.random() * 2 + 0.5,
+                Math.random() * 2 + 1
+            ));
+        }
+
+        animate();
     </script>
 </body>
 </html>
