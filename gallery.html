@@ -11,8 +11,7 @@
     
     <style>
         body {
-            background: url('test.jpg') no-repeat center center fixed;
-            background-size: cover;
+            background-color: pink;
             font-family: 'Georgia', serif;
             text-align: center;
             margin: 0;
@@ -36,38 +35,43 @@
             text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.6);
         }
 
-        /* Heart-shaped gallery */
+        /* Heart Layout Container */
         .heart-container {
             position: relative;
-            width: 400px;
-            height: 400px;
+            width: 500px;
+            height: 500px;
             margin: 50px auto;
-            display: flex;
-            justify-content: center;
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            grid-template-rows: repeat(5, 1fr);
+            gap: 10px;
             align-items: center;
-            flex-wrap: wrap;
         }
 
+        /* Image styling */
         .heart-container a {
-            position: absolute;
+            display: block;
+            width: 80px;
+            height: 80px;
             overflow: hidden;
             border-radius: 10px;
             box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.3);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
 
-        /* Heart-shaped image positions */
-        .heart-container a:nth-child(1) { top: 150px; left: 90px; width: 60px; height: 60px; }
-        .heart-container a:nth-child(2) { top: 70px; left: 140px; width: 70px; height: 70px; }
-        .heart-container a:nth-child(3) { top: 70px; left: 230px; width: 70px; height: 70px; }
-        .heart-container a:nth-child(4) { top: 150px; left: 290px; width: 60px; height: 60px; }
-        .heart-container a:nth-child(5) { top: 220px; left: 100px; width: 90px; height: 90px; }
-        .heart-container a:nth-child(6) { top: 220px; left: 220px; width: 90px; height: 90px; }
-        .heart-container a:nth-child(7) { top: 320px; left: 160px; width: 80px; height: 80px; }
-        .heart-container a:nth-child(8) { top: 40px; left: 180px; width: 60px; height: 60px; }
-        .heart-container a:nth-child(9) { top: 160px; left: 180px; width: 70px; height: 70px; }
-        .heart-container a:nth-child(10) { top: 130px; left: 150px; width: 50px; height: 50px; }
-        
+        /* Arrange images in a heart-like layout */
+        .heart-container a:nth-child(1) { grid-area: 1 / 2 / span 1 / span 1; }
+        .heart-container a:nth-child(2) { grid-area: 1 / 4 / span 1 / span 1; }
+        .heart-container a:nth-child(3) { grid-area: 2 / 1 / span 1 / span 1; }
+        .heart-container a:nth-child(4) { grid-area: 2 / 2 / span 1 / span 1; }
+        .heart-container a:nth-child(5) { grid-area: 2 / 4 / span 1 / span 1; }
+        .heart-container a:nth-child(6) { grid-area: 2 / 5 / span 1 / span 1; }
+        .heart-container a:nth-child(7) { grid-area: 3 / 2 / span 1 / span 1; }
+        .heart-container a:nth-child(8) { grid-area: 3 / 3 / span 1 / span 1; }
+        .heart-container a:nth-child(9) { grid-area: 3 / 4 / span 1 / span 1; }
+        .heart-container a:nth-child(10) { grid-area: 4 / 3 / span 1 / span 1; }
+
+        /* Hover effect */
         .heart-container a:hover {
             transform: scale(1.1);
             box-shadow: 0px 6px 14px rgba(0, 0, 0, 0.5);
@@ -89,15 +93,6 @@
         button:hover {
             background-color: #FF6347;
         }
-
-        /* Snow effect style */
-        canvas {
-            position: absolute;
-            top: 0;
-            left: 0;
-            pointer-events: none;
-            z-index: 100; /* Keep snowflakes on top */
-        }
     </style>
 </head>
 <body>
@@ -111,7 +106,7 @@
         <a href="memory1.jpg" data-lightbox="memories" data-title="Memory 1"><img src="memory1.jpg" alt="Nandi hills trip"></a>
         <a href="memory2.jpg" data-lightbox="memories" data-title="Memory 2"><img src="memory2.jpg" alt="Forum mall"></a>
         <a href="memory3.jpg" data-lightbox="memories" data-title="Memory 3"><img src="memory3.jpg" alt="Evening walk"></a>
-        <a href="memory4.jpg" data-lightbox="memories" data-title="Memory 4"><img src="memory4.jpg" alt="Selfie before u left to native"></a>
+        <a href="memory4.jpg" data-lightbox="memories" data-title="Memory 4"><img src="memory4.jpg" alt="Selfie before you left"></a>
         <a href="memory5.jpg" data-lightbox="memories" data-title="Memory 5"><img src="memory5.jpg" alt="Byjus"></a>
         <a href="memory6.jpg" data-lightbox="memories" data-title="Memory 6"><img src="memory6.jpg" alt="Savandurga"></a>
         <a href="memory7.jpg" data-lightbox="memories" data-title="Memory 7"><img src="memory7.jpg" alt="Pre core"></a>
@@ -121,12 +116,6 @@
     </div>
 
     <button onclick="window.location.href='secret.html'">Secret Message</button>
-
-    <!-- Snow effect canvas -->
-    <canvas id="snowCanvas"></canvas>
-
-    <script>
-        // Snow effect code remains the same as in your original
-    </script>
+    
 </body>
 </html>
