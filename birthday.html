@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,7 +8,8 @@
         body {
             text-align: center;
             font-family: Arial, sans-serif;
-            background: linear-gradient(to right, #ff9a9e, #fad0c4, #fad0c4);
+            background: url('your-background-image.jpg') no-repeat center center fixed;
+            background-size: cover;
             margin: 0;
             position: relative;
             overflow: hidden;
@@ -72,33 +72,6 @@
             pointer-events: none;
         }
 
-        /* Heart pop-up animation */
-        .hearts {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 5;
-            pointer-events: none;
-        }
-
-        .heart-shape {
-            position: absolute;
-            color: #ff66b2;
-            font-size: 30px;
-            animation: pop-up 3s ease-in-out infinite;
-            opacity: 0;
-        }
-
-        @keyframes pop-up {
-            0% { transform: scale(0.5); opacity: 0; }
-            30% { transform: scale(1.5); opacity: 1; }
-            60% { transform: scale(1); opacity: 0.8; }
-            100% { transform: scale(0.5); opacity: 0; }
-        }
-
-        /* Balloon animation */
         .balloon {
             background-image: url(https://i.imgur.com/QJZPw2X.png);
             width: 120px;
@@ -110,9 +83,14 @@
             z-index: 5;
         }
 
+        /* Keyframes for balloon animation */
         @keyframes move_y {
-            from { bottom: -10%; }
-            to { bottom: 100%; }
+            from {
+                bottom: -10%;
+            }
+            to {
+                bottom: 100%;
+            }
         }
 
         @keyframes oscil1 {
@@ -133,26 +111,22 @@
 </head>
 
 <body>
-
     <!-- Background Music -->
     <audio id="background-audio" autoplay loop muted>
-        <source src="song.mp3" type="audio/mp3">
+        <source src="song.mp3" type="song/mp3">
         Your browser does not support the audio element.
     </audio>
 
     <!-- Confetti Canvas -->
     <canvas id="confetti"></canvas>
 
-    <!-- Floating Balloons -->
+    <!-- Flying Balloons -->
     <div class="balloon"></div>
     <div class="balloon"></div>
     <div class="balloon"></div>
     <div class="balloon"></div>
     <div class="balloon"></div>
     <div class="balloon"></div>
-
-    <!-- Floating Hearts Container -->
-    <div class="hearts" id="hearts-container"></div>
 
     <!-- Birthday Message -->
     <div class="message">
@@ -174,37 +148,19 @@
         // Initialize JSConfetti
         const jsConfetti = new JSConfetti();
 
-        // Trigger confetti and unmute audio on page load
+        // Trigger confetti as soon as the page loads
         window.onload = () => {
             jsConfetti.addConfetti({
-                confettiColors: ['#ff0a54', '#ff477e', '#ff7096', '#ff85a1', '#fbb1bd', '#f9bec7', '#f5d0e4', '#f0e6ef', '#d0f4de', '#a9e5bb'],
+                confettiColors: [
+                    '#ff0a54', '#ff477e', '#ff7096', '#ff85a1', '#fbb1bd',
+                    '#f9bec7', '#f5d0e4', '#f0e6ef', '#d0f4de', '#a9e5bb'
+                ],
             });
-            document.getElementById("background-audio").muted = false;
+
+            // Unmute the audio to bypass browser autoplay restrictions
+            const audio = document.getElementById("background-audio");
+            audio.muted = false;
         };
-
-        // Heart pop-up generation
-        function createHeart() {
-            const heartContainer = document.getElementById('hearts-container');
-            const heart = document.createElement('div');
-            heart.classList.add('heart-shape');
-            heart.textContent = '❤️';
-
-            // Randomize position
-            heart.style.top = `${Math.random() * 90}vh`;
-            heart.style.left = `${Math.random() * 90}vw`;
-
-            heartContainer.appendChild(heart);
-
-            // Remove the heart after animation completes
-            setTimeout(() => {
-                heart.remove();
-            }, 3000); // Matches animation duration in CSS
-        }
-
-        // Generate multiple hearts at intervals
-        setInterval(createHeart, 800); // Create a heart every 0.8 seconds
     </script>
-
 </body>
-
 </html>
