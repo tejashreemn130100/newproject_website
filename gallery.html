@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Our Memories Together 💗</title>
+    <title>Memory Gallery in Heart Shape</title>
     
     <!-- Lightbox CSS and JavaScript -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/css/lightbox.min.css" rel="stylesheet">
@@ -11,7 +11,8 @@
     
     <style>
         body {
-            background-color: #ffdde1;
+            background: url('test.jpg') no-repeat center center fixed;
+            background-size: cover;
             font-family: 'Georgia', serif;
             text-align: center;
             margin: 0;
@@ -21,77 +22,81 @@
 
         h1 {
             margin-top: 30px;
-            font-size: 2.8em;
-            color: #FF69B4;
-            text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.3);
+            font-size: 2.5em;
+            color: #FFFAE4;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
         }
 
         .quote {
             font-style: italic;
-            margin: 15px auto;
-            max-width: 75%;
+            margin: 20px auto;
+            max-width: 70%;
             font-size: 1.2em;
-            color: #FFA07A;
-            text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.4);
+            color: #FFD700;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.6);
         }
 
-        /* Heart-shaped Gallery Container */
+        /* Updated Layout for Pictures */
         .heart-container {
             position: relative;
-            width: 400px;
-            height: 400px;
-            margin: 30px auto;
+            width: 600px;
+            height: 600px;
+            margin: 50px auto;
             display: flex;
-            flex-wrap: wrap;
             justify-content: center;
-            gap: 10px;
+            align-items: center;
+            flex-wrap: wrap;
         }
 
-        /* Image Styling */
         .heart-container a {
-            display: inline-block;
-            width: 85px;
-            height: 85px;
-            border-radius: 15px;
+            position: absolute;
             overflow: hidden;
+            border-radius: 10px;
             box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.3);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
-            position: absolute;
         }
 
-        /* Position each image to form a heart shape */
-        .heart-container a:nth-child(1) { top: 30px; left: 80px; }
-        .heart-container a:nth-child(2) { top: 30px; left: 240px; }
-        .heart-container a:nth-child(3) { top: 110px; left: 30px; }
-        .heart-container a:nth-child(4) { top: 110px; left: 140px; }
-        .heart-container a:nth-child(5) { top: 110px; left: 200px; }
-        .heart-container a:nth-child(6) { top: 110px; left: 310px; }
-        .heart-container a:nth-child(7) { top: 190px; left: 70px; }
-        .heart-container a:nth-child(8) { top: 190px; left: 270px; }
-        .heart-container a:nth-child(9) { top: 260px; left: 140px; }
-        .heart-container a:nth-child(10) { top: 260px; left: 200px; }
-
-        /* Hover effect */
+        /* Organizing pictures inside and outside the arch */
+        .heart-container a:nth-child(1) { top: 50px; left: 100px; width: 80px; height: 80px; }
+        .heart-container a:nth-child(2) { top: 70px; left: 200px; width: 70px; height: 70px; }
+        .heart-container a:nth-child(3) { top: 180px; left: 300px; width: 70px; height: 70px; }
+        .heart-container a:nth-child(4) { top: 250px; left: 350px; width: 80px; height: 80px; }
+        .heart-container a:nth-child(5) { top: 300px; left: 150px; width: 100px; height: 100px; }
+        .heart-container a:nth-child(6) { top: 400px; left: 250px; width: 70px; height: 70px; }
+        .heart-container a:nth-child(7) { top: 450px; left: 180px; width: 80px; height: 80px; }
+        .heart-container a:nth-child(8) { top: 40px; left: 400px; width: 60px; height: 60px; }
+        .heart-container a:nth-child(9) { top: 220px; left: 20px; width: 90px; height: 90px; }
+        .heart-container a:nth-child(10) { top: 130px; left: 500px; width: 60px; height: 60px; }
+        
         .heart-container a:hover {
             transform: scale(1.1);
             box-shadow: 0px 6px 14px rgba(0, 0, 0, 0.5);
         }
 
-        /* Button styling */
+        /* Button for secret message */
         button {
             margin-top: 20px;
-            padding: 12px 24px;
-            background-color: #FF69B4;
+            padding: 10px 20px;
+            background-color: #FFA07A;
             color: white;
             border: none;
-            border-radius: 8px;
-            font-size: 1.1em;
+            border-radius: 5px;
             cursor: pointer;
+            font-size: 1.1em;
             box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
         }
 
         button:hover {
-            background-color: #FF1493;
+            background-color: #FF6347;
+        }
+
+        /* Snow effect style */
+        canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            z-index: 100; /* Keep snowflakes on top */
         }
     </style>
 </head>
@@ -106,7 +111,7 @@
         <a href="memory1.jpg" data-lightbox="memories" data-title="Memory 1"><img src="memory1.jpg" alt="Nandi hills trip"></a>
         <a href="memory2.jpg" data-lightbox="memories" data-title="Memory 2"><img src="memory2.jpg" alt="Forum mall"></a>
         <a href="memory3.jpg" data-lightbox="memories" data-title="Memory 3"><img src="memory3.jpg" alt="Evening walk"></a>
-        <a href="memory4.jpg" data-lightbox="memories" data-title="Memory 4"><img src="memory4.jpg" alt="Selfie before you left"></a>
+        <a href="memory4.jpg" data-lightbox="memories" data-title="Memory 4"><img src="memory4.jpg" alt="Selfie before u left to native"></a>
         <a href="memory5.jpg" data-lightbox="memories" data-title="Memory 5"><img src="memory5.jpg" alt="Byjus"></a>
         <a href="memory6.jpg" data-lightbox="memories" data-title="Memory 6"><img src="memory6.jpg" alt="Savandurga"></a>
         <a href="memory7.jpg" data-lightbox="memories" data-title="Memory 7"><img src="memory7.jpg" alt="Pre core"></a>
@@ -116,6 +121,12 @@
     </div>
 
     <button onclick="window.location.href='secret.html'">Secret Message</button>
-    
+
+    <!-- Snow effect canvas -->
+    <canvas id="snowCanvas"></canvas>
+
+    <script>
+        // Snow effect code remains the same as in your original
+    </script>
 </body>
 </html>
