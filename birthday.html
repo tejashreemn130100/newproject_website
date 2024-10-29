@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,7 +9,7 @@
         body {
             text-align: center;
             font-family: Arial, sans-serif;
-            background: url('your-background-image.jpg') no-repeat center center fixed;
+            background: url('background.jpg') no-repeat center center fixed; /* Add your image URL here */
             background-size: cover;
             margin: 0;
             position: relative;
@@ -72,32 +73,54 @@
             pointer-events: none;
         }
 
+        /* Heart pop-up animation */
+        .hearts {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 5;
+            pointer-events: none;
+        }
+
+        .heart-shape {
+            position: absolute;
+            color: #ff66b2;
+            font-size: 30px;
+            animation: pop-up 3s ease-in-out infinite;
+            opacity: 0;
+        }
+
+        @keyframes pop-up {
+            0% { transform: scale(0.5); opacity: 0; }
+            30% { transform: scale(1.5); opacity: 1; }
+            60% { transform: scale(1); opacity: 0.8; }
+            100% { transform: scale(0.5); opacity: 0; }
+        }
+
+        /* Floating Balloons */
         .balloon {
             background-image: url(https://i.imgur.com/QJZPw2X.png);
             width: 120px;
             height: 200px;
             background-size: contain;
             position: absolute;
-            bottom: 0%;
+            bottom: 0;
             animation: move_y 30s linear forwards, oscil1 6s infinite;
             z-index: 5;
         }
 
-        /* Keyframes for balloon animation */
         @keyframes move_y {
-            from {
-                bottom: -10%;
-            }
-            to {
-                bottom: 100%;
-            }
+            from { bottom: -10%; }
+            to { bottom: 100%; }
         }
 
         @keyframes oscil1 {
-            from { transform: translateX(0) rotate(0deg); }
-            25% { transform: translateX(10px) rotate(3deg); }
-            50% { transform: translateX(0) rotate(0deg); }
-            75% { transform: translateX(-10px) rotate(-3deg); }
+            from { transform: translateX(0) rotate(0deg); animation-timing-function: cubic-bezier(0.1, 0.3, 0.3, 1); }
+            25% { transform: translateX(10px) rotate(3deg); animation-timing-function: cubic-bezier(0.7, 0.0, 0.9, 0.7); }
+            50% { transform: translateX(0) rotate(0deg); animation-timing-function: cubic-bezier(0.1, 0.3, 0.3, 1); }
+            75% { transform: translateX(-10px) rotate(-3deg); animation-timing-function: cubic-bezier(0.7, 0.0, 0.9, 0.7); }
             to { transform: translateX(0) rotate(0deg); }
         }
 
@@ -111,9 +134,10 @@
 </head>
 
 <body>
+
     <!-- Background Music -->
     <audio id="background-audio" autoplay loop muted>
-        <source src="song.mp3" type="song/mp3">
+        <source src="song.mp3" type="audio/mp3">
         Your browser does not support the audio element.
     </audio>
 
@@ -141,6 +165,9 @@
     <!-- Follow Me Button -->
     <button onclick="window.location.href='gallery.html'">Follow Me</button>
 
+    <!-- Floating Hearts Container -->
+    <div class="hearts" id="hearts-container"></div>
+
     <!-- JS Confetti Library -->
     <script src="https://cdn.jsdelivr.net/npm/js-confetti@latest/dist/js-confetti.browser.js"></script>
 
@@ -160,7 +187,31 @@
             // Unmute the audio to bypass browser autoplay restrictions
             const audio = document.getElementById("background-audio");
             audio.muted = false;
+
+            // Start generating hearts
+            setInterval(createHeart, 800);
         };
+
+        // Heart pop-up generation
+        function createHeart() {
+            const heartContainer = document.getElementById('hearts-container');
+            const heart = document.createElement('div');
+            heart.classList.add('heart-shape');
+            heart.textContent = '❤️';
+
+            // Randomize position
+            heart.style.top = `${Math.random() * 90}vh`;
+            heart.style.left = `${Math.random() * 90}vw`;
+
+            heartContainer.appendChild(heart);
+
+            // Remove the heart after animation completes
+            setTimeout(() => {
+                heart.remove();
+            }, 3000); // Matches animation duration in CSS
+        }
     </script>
+
 </body>
+
 </html>
